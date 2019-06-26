@@ -151,23 +151,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Desktop\code\bigint.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\code\debug.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\code\libfns.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\code\main.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\code\scanner.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\code\ubigint.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\code\util.cpp" />
-    <ClCompile Include="ASG1.cpp" />
+    <ClCompile Include="bigint.cpp" />
+    <ClCompile Include="debug.cpp" />
+    <ClCompile Include="libfns.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="scanner.cpp" />
+    <ClCompile Include="ubigint.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Desktop\code\bigint.h" />
-    <ClInclude Include="..\..\..\..\..\Desktop\code\debug.h" />
-    <ClInclude Include="..\..\..\..\..\Desktop\code\iterstack.h" />
-    <ClInclude Include="..\..\..\..\..\Desktop\code\libfns.h" />
-    <ClInclude Include="..\..\..\..\..\Desktop\code\relops.h" />
-    <ClInclude Include="..\..\..\..\..\Desktop\code\scanner.h" />
-    <ClInclude Include="..\..\..\..\..\Desktop\code\ubigint.h" />
+    <ClInclude Include="bigint.h" />
+    <ClInclude Include="debug.h" />
+    <ClInclude Include="iterstack.h" />
+    <ClInclude Include="libfns.h" />
+    <ClInclude Include="relops.h" />
+    <ClInclude Include="scanner.h" />
+    <ClInclude Include="ubigint.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
