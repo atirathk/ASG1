@@ -10,7 +10,7 @@ using namespace std;
 #include "ubigint.h"
 #include "debug.h"
 
-ubigint::ubigint (unsigned long that): ubig_value (that) {
+ubigint::ubigint (ubigvalue_t that): ubig_value (that) {
    DEBUGF ('~', this << " -> " << ubig_value)
 }
 
@@ -34,6 +34,8 @@ ubigint ubigint::operator- (const ubigint& that) const {
 }
 
 ubigint ubigint::operator* (const ubigint& that) const {
+   const int prodSize = this->ubig_value.size() + that.ubig_value.size();
+   unsigned char* product = new unsigned char[prodSize];
    return ubigint (ubig_value * that.ubig_value);
 }
 
@@ -86,7 +88,8 @@ bool ubigint::operator< (const ubigint& that) const {
    return ubig_value < that.ubig_value;
 }
 
-ostream& operator<< (ostream& out, const ubigint& that) { 
-   return out << "ubigint(" << that.ubig_value << ")";
+ostream& operator<< (ostream& out, const ubigint& that) {
+   out << "ubigint(" << that.ubig_value << ")";
+   return out;
 }
 

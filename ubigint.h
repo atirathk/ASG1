@@ -23,7 +23,7 @@ class ubigint {
       void divide_by_2();
 
       ubigint() = default; // Need default ctor as well.
-      ubigint (unsigned long);
+      ubigint (ubigvalue_t);
       ubigint (const string&);
 
       ubigint operator+ (const ubigint&) const;
@@ -35,7 +35,6 @@ class ubigint {
       bool operator== (const ubigint&) const;
       bool operator<  (const ubigint&) const;
 
-      
 };
 
 #endif
