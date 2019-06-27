@@ -2,6 +2,9 @@
 
 #ifndef __DEBUG_H__
 #define __DEBUG_H__
+#ifdef _WIN32
+#define __PRETTY_FUNCTION__ __FUNCSIG__
+#endif
 
 #include <string>
 #include <vector>

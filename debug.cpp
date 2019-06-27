@@ -1,5 +1,4 @@
 // $Id: debug.cpp,v 1.10 2018-01-25 14:05:16-08 - - $
-
 #include <climits>
 #include <iostream>
 #include <vector>

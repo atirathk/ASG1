@@ -12,5 +12,4 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.2
 C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\wingetopt.c(44,18): warning C4013:  'strcmp' undefined; assuming extern returning int
 C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\wingetopt.c(49,30): warning C4013:  'strchr' undefined; assuming extern returning int
 C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\wingetopt.c(49,39): warning C4047:  '=': 'char *' differs in levels of indirection from 'int'
-debug.obj : error LNK2019: unresolved external symbol "class std::basic_ostream<char,struct std::char_traits<char> > & __cdecl note(void)" (?note@@YAAAV?$basic_ostream@DU?$char_traits@D@std@@@std@@XZ) referenced in function "public: static void __cdecl debugflags::where(char,char const *,int,char const *)" (?where@debugflags@@SAXDPBDH0@Z)
-C:\Users\Atirath\source\repos\CMPS109\ASG1\Debug\ASG1.exe : fatal error LNK1120: 1 unresolved externals
+  ASG1.vcxproj -> C:\Users\Atirath\source\repos\CMPS109\ASG1\x64\Debug\ASG1.lib

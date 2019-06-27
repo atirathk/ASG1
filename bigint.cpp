@@ -5,7 +5,6 @@
 #include <stack>
 #include <stdexcept>
 using namespace std;
-
 #include "bigint.h"
 #include "debug.h"
 #include "relops.h"

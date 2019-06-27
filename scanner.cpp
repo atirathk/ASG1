@@ -1,5 +1,4 @@
 // $Id: scanner.cpp,v 1.21 2019-04-05 14:36:05-07 - - $
-
 #include <cassert>
 #include <iostream>
 #include <locale>

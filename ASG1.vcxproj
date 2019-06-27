@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -99,8 +99,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -151,13 +150,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bigint.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="libfns.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="scanner.cpp" />
     <ClCompile Include="ubigint.cpp" />
-    <ClCompile Include="util.cpp" />
+    <ClCompile Include="wingetopt.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bigint.h" />
@@ -167,6 +165,9 @@
     <ClInclude Include="relops.h" />
     <ClInclude Include="scanner.h" />
     <ClInclude Include="ubigint.h" />
+    <ClInclude Include="unistd.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="wingetopt.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
