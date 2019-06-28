@@ -27,10 +27,10 @@
     <ClCompile Include="debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="wingetopt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="wingetopt.c">
+    <ClCompile Include="testClient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

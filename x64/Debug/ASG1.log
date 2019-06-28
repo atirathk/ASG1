@@ -1,2 +1,4 @@
 ﻿  ubigint.cpp
 C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\ubigint.cpp(29,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\ubigint.cpp(29,29): warning C4267: C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\ubigint.cpp(173) : error C4716: 'operator<<': must return a value
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(429,5): error MSB6006: "CL.exe" exited with code 2.

@@ -40,7 +40,6 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -150,10 +149,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="libfns.cpp" />
     <ClCompile Include="scanner.cpp" />
+    <ClCompile Include="testClient.cpp" />
     <ClCompile Include="ubigint.cpp" />
     <ClCompile Include="wingetopt.c" />
   </ItemGroup>

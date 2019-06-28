@@ -7,8 +7,8 @@ NEEDINCL    = ${filter ${NOINCL}, ${MAKECMDGOALS}}
 GMAKE       = ${MAKE} --no-print-directory
 GPPWARN     = -Wall -Wextra -Wpedantic -Wshadow -Wold-style-cast
 GPPOPTS     = ${GPPWARN} -fdiagnostics-color=never
-COMPILECPP  = g++ -std=gnu++2a -g -O0 ${GPPOPTS}
-MAKEDEPCPP  = g++ -std=gnu++2a -MM ${GPPOPTS}
+COMPILECPP  = g++ -std=gnu++17 -g -O0 ${GPPOPTS} ##change to 2a when done
+MAKEDEPCPP  = g++ -std=gnu++17 -MM ${GPPOPTS}
 UTILBIN     = /afs/cats.ucsc.edu/courses/cmps109-wm/bin
 
 MODULES     = ubigint bigint libfns scanner debug util
@@ -27,13 +27,13 @@ ${EXECBIN} : ${OBJECTS}
 	${COMPILECPP} -o $@ ${OBJECTS}
 
 %.o : %.cpp
-	- ${UTILBIN}/checksource $<
-	- ${UTILBIN}/cpplint.py.perl $<
+##	- ${UTILBIN}/checksource $<
+##	- ${UTILBIN}/cpplint.py.perl $<
 	${COMPILECPP} -c $<
 
 ci : ${ALLSOURCES}
 	${UTILBIN}/cid + ${ALLSOURCES}
-	- ${UTILBIN}/checksource ${ALLSOURCES}
+##	- ${UTILBIN}/checksource ${ALLSOURCES}
 
 lis : ${ALLSOURCES}
 	mkpspdf ${LISTING} ${ALLSOURCES} ${DEPFILE}

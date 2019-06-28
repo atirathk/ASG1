@@ -14,7 +14,7 @@ using namespace std;
 #include <unistd.h>
 #endif
 
-#include "bigint.h"
+// #include "bigint.h"
 #include "debug.h"
 #include "iterstack.h"
 #include "libfns.h"
