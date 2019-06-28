@@ -4,6 +4,8 @@
 #include <exception>
 #include <stack>
 #include <stdexcept>
+#include<algorithm>
+#include<vector>
 using namespace std;
 
 #include "ubigint.h"
@@ -20,12 +22,12 @@ ubigint::ubigint(ubigvalue_t that) : ubig_value(that) {
 ubigint::ubigint(const string& that) {
 	DEBUGF('~', "that = \"" << that << "\"");
 	for (char digit : that) {
-		if (not isdigit(digit) && not '_' && not) {
+		if (not isdigit(digit) && not '_' && not '+') {
 			throw invalid_argument("ubigint::ubigint(" + that + ")");
 		}
 	}
-	for (char const c : that) {
-		int convert = c - '0';
+	for(int i = that.length()-1; i > 0; i--) {
+		int convert = that[i] - '0';
 		this->ubig_value.push(convert);
 	}
 }
@@ -162,6 +164,10 @@ bool ubigint::operator< (const ubigint& that) const {
 }
 
 ostream& operator<< (ostream& out, const ubigint& that) {
-	out << "ubigint(" << that.ubig_value << ")";
-	return out;
+	out << "ubigint(";
+	ubigint::ubigvalue_t val = that.ubig_value;
+	for (auto i = val.begin(); i < val.end(); i++) {
+		out << *i;
+	}
+	out << ")";
 }

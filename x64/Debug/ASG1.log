@@ -1,2 +1,2 @@
 ﻿  ubigint.cpp
-  C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\ubigint.cpp(167) : warning C4717: 'operator<<': recursive on all control paths, function will cause runtime stack overflow
+C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\ubigint.cpp(29,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
