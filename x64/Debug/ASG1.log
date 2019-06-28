@@ -1,15 +1,2 @@
-﻿  main.cpp
-  debug.cpp
-  libfns.cpp
-  scanner.cpp
-  ubigint.cpp
-  Generating Code...
-C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\debug.cpp(20,13): warning C4267:  'argument': conversion from 'size_t' to 'char', possible loss of data
-C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\debug.cpp(20,13): warning C4267: C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\ubigint.cpp(111) : warning C4717: 'operator<<': recursive on all control paths, function will cause runtime stack overflow
-  wingetopt.c
-C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\wingetopt.c(14,1): warning C4005:  'NULL': macro redefinition
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\include\vcruntime.h(222): message :  see previous definition of 'NULL'
-C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\wingetopt.c(44,18): warning C4013:  'strcmp' undefined; assuming extern returning int
-C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\wingetopt.c(49,30): warning C4013:  'strchr' undefined; assuming extern returning int
-C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\wingetopt.c(49,39): warning C4047:  '=': 'char *' differs in levels of indirection from 'int'
-  ASG1.vcxproj -> C:\Users\Atirath\source\repos\CMPS109\ASG1\x64\Debug\ASG1.lib
+﻿  ubigint.cpp
+  C:\Users\Atirath\source\repos\CMPS109\ASG1\ASG1\ubigint.cpp(167) : warning C4717: 'operator<<': recursive on all control paths, function will cause runtime stack overflow
