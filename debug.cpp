@@ -1,4 +1,5 @@
 // $Id: debug.cpp,v 1.10 2018-01-25 14:05:16-08 - - $
+#ifdef __unix__
 #include <climits>
 #include <iostream>
 #include <vector>
@@ -37,3 +38,4 @@ void debugflags::where (char flag, const char* file, int line,
           << "   " << pretty_function << endl;
 }
 
+#endif

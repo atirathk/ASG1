@@ -27,9 +27,10 @@ ubigint::ubigint(const string& that) {
                throw invalid_argument("ubigint::ubigint(" + that + ")");
           }
      }
-     for(int i = that.length()-1; i > 0; i--) {
+     for(int i = that.length()-1; i >= 0; i--) {
           int convert = that[i] - '0';
           this->ubig_value.push(convert);
+          unsigned char temp = ubig_value.top();
      }
 }
 
@@ -165,9 +166,11 @@ bool ubigint::operator< (const ubigint& that) const {
 
 ostream& operator<< (ostream& out, const ubigint& that) {
      out << "ubigint(";
-     ubigint::ubigvalue_t val = that.ubig_value;
-     for (auto i = val.begin(); i < val.end(); i++) {
-          out << *i;
-     }
-     out << ")";
+     ubigint copy = that;
+     unsigned char c = copy.ubig_value.top();
+     out << (int) c;
+     // for (auto i = val.begin(); i < val.end(); ++i) {
+     //      out << *i;
+     // }
+     // out << ")";
 }

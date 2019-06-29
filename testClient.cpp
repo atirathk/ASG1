@@ -20,7 +20,6 @@ using namespace std;
 #include "iterstack.h"
 #include "libfns.h"
 #include "scanner.h"
-#include "util.h"
 
 using bigint_stack = iterstack<bigint>;
 
@@ -112,7 +111,13 @@ void do_dup(bigint_stack& stack, const char) {
 
 //Main function.
 
-int main(int argc, char** argv) {
+int main() {
+	string rVal = "432";
+	const string& s1 = rVal;
+	iterstack <unsigned char> st;
+	// st.push(4), st.push(5), st.push(0);
+	ubigint u1(s1);
+	cout << u1 << "\n";
 	return 0;
 }
 
