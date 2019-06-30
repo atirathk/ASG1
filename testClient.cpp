@@ -112,12 +112,17 @@ void do_dup(bigint_stack& stack, const char) {
 //Main function.
 
 int main() {
-	string rVal = "432";
-	const string& s1 = rVal;
 	iterstack <unsigned char> st;
 	// st.push(4), st.push(5), st.push(0);
-	ubigint u1(s1);
+	ubigint u1("432");
 	cout << u1 << "\n";
+	ubigint u2("432");
+	cout << u1 << " == " << u2 << ":	" << (u1 == u2) << "\n";
+	ubigint u3("2342");
+	cout << u1 << " == " << u3 << ":	" << (u1 == u3) << "\n";
+	cout << u1 << " < " << u2 << ":	" << (u1 < u2) << "\n";
+	cout << u1 << " < " << u3 << ":	" << (u1 < u3) << "\n";
+	cout << u3 << " < " << u1 << ":	" << (u1 > u3) << "\n";
 	return 0;
 }
 

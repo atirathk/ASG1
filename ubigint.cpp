@@ -154,20 +154,41 @@ ubigint ubigint::operator% (const ubigint& that) const {
 }
 
 bool ubigint::operator== (const ubigint& that) const {
-     //return ubig_value == that.ubig_value;
-     return 1;
+     if(this->ubig_value.size() != that.ubig_value.size()) {
+          return false;
+     }
+     auto j = this->ubig_value.begin();
+     for (auto i = that.ubig_value.begin(); i < that.ubig_value.end(); ++i, ++j) {
+          if (*i != *j) {
+               return false;
+          }
+     }
+     return true;
 }
 
 bool ubigint::operator< (const ubigint& that) const {
-     //return ubig_value < that.ubig_value;
-     return 1;
-
+     if(this->ubig_value.size() < that.ubig_value.size()) {
+          return true;
+     }
+     if(this->ubig_value.size() > that.ubig_value.size()) {
+          return false;
+     }
+     auto j = this->ubig_value.begin();
+     for (auto i = that.ubig_value.begin(); i < that.ubig_value.end(); ++i, ++j) {
+          if (*i > *j) {
+               return false;
+          }
+          if (*i < *j) {
+               return true;
+          }
+     }
+     return false;
 }
 
 ostream& operator<< (ostream& out, const ubigint& that) {
      out << "ubigint(";
      for (auto i = that.ubig_value.begin(); i < that.ubig_value.end(); ++i) {
-          out << (int) *i;
+          out << static_cast<int>(*i);
      }
      out << ")";
 }
