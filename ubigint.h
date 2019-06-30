@@ -26,15 +26,14 @@ class ubigint {
       ubigint (ubigvalue_t);
       ubigint (const string&);
 
-      ubigint operator+ (const ubigint&) const;
-      ubigint operator- (const ubigint&) const;
-      ubigint operator* (const ubigint&) const;
-      ubigint operator/ (const ubigint&) const;
-      ubigint operator% (const ubigint&) const;
+      ubigint operator+ (const ubigint& that) const;
+      ubigint operator- (const ubigint& that) const;
+      ubigint operator* (const ubigint& that) const;
+      ubigint operator/ (const ubigint& that) const;
+      ubigint operator% (const ubigint& that) const;
 
       bool operator== (const ubigint&) const;
       bool operator<  (const ubigint&) const;
-
 };
 
 #endif

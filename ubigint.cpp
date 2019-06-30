@@ -166,11 +166,8 @@ bool ubigint::operator< (const ubigint& that) const {
 
 ostream& operator<< (ostream& out, const ubigint& that) {
      out << "ubigint(";
-     ubigint copy = that;
-     unsigned char c = copy.ubig_value.top();
-     out << (int) c;
-     // for (auto i = val.begin(); i < val.end(); ++i) {
-     //      out << *i;
-     // }
-     // out << ")";
+     for (auto i = that.ubig_value.begin(); i < that.ubig_value.end(); ++i) {
+          out << (int) *i;
+     }
+     out << ")";
 }
