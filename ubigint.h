@@ -34,6 +34,8 @@ class ubigint {
 
       bool operator== (const ubigint&) const;
       bool operator<  (const ubigint&) const;
+      bool operator>  (const ubigint&) const;
+
 };
 
 #endif

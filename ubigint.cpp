@@ -35,60 +35,41 @@ ubigint::ubigint(const string& that) {
 }
 
 ubigint ubigint::operator+ (const ubigint& that) const {
-       //int carry = 0;
-       //int maxLength;
-       //int thisSize = this->ubig_value.size();
-       //int thatSize = that.ubig_value.size();
-       //if (thisSize <= thatSize) {
-       //   maxLength = thatSize;
-       //   this->ubig_value.push("0");
-       //   ubigint temp(this->ubig_value);
-       //   *this = that;
-       //   that = temp;
-       //}
-       //else {
-       //     maxLength = input1->size;
-       //     input2->num = realloc(input2->num, maxLength * sizeof(int));
-       //}
-       //apint sum;
-       //sum = new_apint_default();
-       //sum->size = maxLength + 1;
-       //sum->num = malloc((sum->size + 1) * sizeof(int));
-       //sum->num[sum->size - 1] = 0;
-       //bool bothNeg = false;
-       //if (input1->num[input1->size - 1] < 0 && input2->num[input2->size - 1] >= 0) {
-       //     input2->num[input2->size - 1] *= -1;
-       //     sum = subtract_apint(input2, input1);
-       //     return sum;
-       //}
-       //else if (input1->num[input1->size - 1] >= 0 && input2->num[input2->size - 1] < 0) {
-       //     input2->num[input2->size - 1] *= -1;
-       //     sum = subtract_apint(input1, input2);
-       //     return sum;
-       //}
-       //else if (input1->num[input1->size - 1] < 0 && input2->num[input2->size - 1] < 0) {
-       //     bothNeg = true;
-       //     input1->num[input1->size - 1] *= -1;
-       //     input2->num[input2->size - 1] *= -1;
-       //}
-
-       //input2->num[maxLength - 1] = 0;
-
-       //for (int i = 0; i < sum->size - 1; i++) {
-       //     sum->num[i] = input1->num[i] + input2->num[i] + carry;
-       //     carry = 0;
-       //     if (sum->num[i] >= 10) {
-       //          carry = 1;
-       //          sum->num[i] = sum->num[i] % 10;
-       //     }
-       //}
-       //sum->num[sum->size - 1] = carry;
-       //if (bothNeg == true) {
-       //     sum->num[sum->size - 1] *= -1;
-       //}
-       //return sum;
-       cerr << "fix ubigint ubigint::operator+!";
-     return that;
+     int maxLength;
+     int thisSize = this->ubig_value.size();
+     int thatSize = that.ubig_value.size();
+     ubigint thisCopy(this->ubig_value);
+     ubigint thatCopy(that.ubig_value);
+     if (thisSize <= thatSize) {
+          maxLength = thatSize;
+          while(thisCopy.ubig_value.size() != that.ubig_value.size()) {
+               thisCopy.ubig_value.push(0);
+          }
+     }
+     else {
+          maxLength = thisSize;
+          while(thatCopy.ubig_value.size() != thisCopy.ubig_value.size()) {
+               thatCopy.ubig_value.push(0);
+          }
+     }
+     ubigvalue_t num;
+     ubigint sum ("");
+     auto j = thatCopy.ubig_value.end() - 1;
+     unsigned char carry = 0;
+     for (auto i = thisCopy.ubig_value.end() - 1; thisCopy.ubig_value.begin() < i + 1; --i, --j) {
+          udigit_t digit = *i + *j + carry;
+          cout << "current digit: " << static_cast<int>(*i) << '\n';
+          carry = 0;
+          if (digit >= 10) {
+               carry = 1;
+               digit %= 10;
+          }
+          sum.ubig_value.push(digit);
+     }
+     if(carry > 0) {
+          sum.ubig_value.push(carry);
+     }
+     return sum;
 }
 
 ubigint ubigint::operator- (const ubigint& that) const {
@@ -183,6 +164,14 @@ bool ubigint::operator< (const ubigint& that) const {
           }
      }
      return false;
+}
+
+bool ubigint::operator> (const ubigint& that) const {
+     if (*this == that) {
+          return false;
+     }
+
+     return (*this < that);
 }
 
 ostream& operator<< (ostream& out, const ubigint& that) {
