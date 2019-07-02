@@ -54,11 +54,12 @@ ubigint ubigint::operator+ (const ubigint& that) const {
      }
      ubigvalue_t num;
      ubigint sum ("");
-     auto j = thatCopy.ubig_value.end() - 1;
+     auto j = that.ubig_value.end() - 1;
+     auto i = this->ubig_value.end() - 1;
      unsigned char carry = 0;
-     for (auto i = thisCopy.ubig_value.end() - 1; thisCopy.ubig_value.begin() < i + 1; --i, --j) {
+     for (i = this->ubig_value.end() - 1; this->ubig_value.begin() < i + 1 && that.ubig_value.begin() < j + 1; --i, --j) {
           udigit_t digit = *i + *j + carry;
-          cout << "current digit: " << static_cast<int>(*i) << '\n';
+          cout << "current digit: " << static_cast<int>(*j) << '\n';
           carry = 0;
           if (digit >= 10) {
                carry = 1;
@@ -66,25 +67,65 @@ ubigint ubigint::operator+ (const ubigint& that) const {
           }
           sum.ubig_value.push(digit);
      }
+     for (i = i; this->ubig_value.begin() < i + 1; --i) {
+          sum.ubig_value.push(*i);
+     }
+     for (j = j; that.ubig_value.begin() < j + 1; --j) {
+          sum.ubig_value.push(*j);
+     }
      if(carry > 0) {
           sum.ubig_value.push(carry);
      }
      return sum;
 }
 
-ubigint ubigint::operator- (const ubigint& that) const {
-     //if (*this < that) throw domain_error ("ubigint::operator-(a<b)");
-     //return ubigint (ubig_value - that.ubig_value);
-     cerr << "fix ubigint ubigint::operator-!";
-     return that;
+ubigint ubigint::operator+= (const ubigint& that) const {
+     return (*this + that);
 }
 
+ubigint ubigint::operator- (const ubigint& that) const {
+     if (*this < that) { 
+          throw domain_error ("ubigint::operator-(a<b)");
+     }
+     int maxLength;
+     ubigvalue_t num;
+     ubigint diff ("");
+     auto j = that.ubig_value.end() - 1;
+     auto i = this->ubig_value.end() - 1;
+     unsigned char carry = 0;
+     for (j = that.ubig_value.end() - 1; that.ubig_value.begin() < j + 1; --i, --j) {
+          udigit_t digit = *i;
+          digit = digit - *j - carry;
+          carry = 0;
+          if (*i < *j) {
+               digit += 10;
+               carry = 1;
+          }
+          diff.ubig_value.push(digit);
+     }
+     for (i = i; this->ubig_value.begin() < i + 1; --i) {
+          diff.ubig_value.push(*i - carry);
+     }
+     return diff;
+}
+//NEED TO FINISH THE / OPERATOR, THEN THE % OPERATOR
 ubigint ubigint::operator* (const ubigint& that) const {
-     //const int prodSize = this->ubig_value.size() + that.ubig_value.size();
-     //unsigned char* product = new unsigned char[prodSize];
-     //return ubigint (ubig_value * that.ubig_value);
-     cerr << "fix ubigint ubigint::operator*!";
-     return that;
+	ubigint product("");
+	ubigint intermed("");
+	udigit_t carry = 0;
+	for (auto i = this->ubig_value.end() - 1; this->ubig_value.begin() < i + 1; --i) {
+		carry = 0;
+		for (auto j = that.ubig_value.end() - 1; that.ubig_value.begin() < j + 1; --j) {
+			intermed.ubig_value.push(*i * *j + carry);
+			if (intermed.ubig_value.top() >= 10) {
+				carry = intermed.ubig_value.top() / 10;
+				// intermed.ubig_value.push(intermed.ubig_value % 10);
+			}
+		}
+		product += intermed;
+	}
+	// product = cut_zeroes(product);
+	return product;
 }
 
 void ubigint::multiply_by_2() {
@@ -125,8 +166,25 @@ quo_rem udivide(const ubigint& dividend, const ubigint& divisor_) {
 }
 
 ubigint ubigint::operator/ (const ubigint& that) const {
-     //return udivide (*this, that).quotient;
-     return ubigint("0");
+//    if (divisor == 0) throw domain_error ("divide(_,0)");
+//    ulong powerof2 = 1;
+//    ulong divisor_ = divisor;
+//    while (divisor_ < dividend) {
+//       divisor_ *= 2;
+//       powerof2 *= 2;
+//    }
+//    ulong quotient = 0;
+//    ulong remainder = dividend;
+//    while (powerof2 > 0) {
+//       if (divisor_ <= remainder) {
+//          remainder -= divisor_;
+//          quotient += powerof2;
+//       }
+//       divisor_ /= 2;
+//       powerof2 /= 2;
+//    }
+//    return uupair (quotient, remainder);     
+   return ubigint("0");
 }
 
 ubigint ubigint::operator% (const ubigint& that) const {
