@@ -38,28 +38,13 @@ ubigint ubigint::operator+ (const ubigint& that) const {
      int maxLength;
      int thisSize = this->ubig_value.size();
      int thatSize = that.ubig_value.size();
-     ubigint thisCopy(this->ubig_value);
-     ubigint thatCopy(that.ubig_value);
-     if (thisSize <= thatSize) {
-          maxLength = thatSize;
-          while(thisCopy.ubig_value.size() != that.ubig_value.size()) {
-               thisCopy.ubig_value.push(0);
-          }
-     }
-     else {
-          maxLength = thisSize;
-          while(thatCopy.ubig_value.size() != thisCopy.ubig_value.size()) {
-               thatCopy.ubig_value.push(0);
-          }
-     }
-     ubigvalue_t num;
      ubigint sum ("");
      auto j = that.ubig_value.end() - 1;
      auto i = this->ubig_value.end() - 1;
      unsigned char carry = 0;
+     udigit_t digit;
      for (i = this->ubig_value.end() - 1; this->ubig_value.begin() < i + 1 && that.ubig_value.begin() < j + 1; --i, --j) {
-          udigit_t digit = *i + *j + carry;
-          // cout << "current digit: " << static_cast<int>(*j) << '\n';
+          digit = *i + *j + carry;
           carry = 0;
           if (digit >= 10) {
                carry = 1;
@@ -68,14 +53,27 @@ ubigint ubigint::operator+ (const ubigint& that) const {
           sum.ubig_value.push(digit);
      }
      for (i = i; this->ubig_value.begin() < i + 1; --i) {
-          sum.ubig_value.push(*i);
+          digit = *i + carry;
+          carry = 0;
+          if (digit >= 10) {
+               carry = digit - 10;
+               digit %= 10;
+          }
+          sum.ubig_value.push(digit);     
      }
      for (j = j; that.ubig_value.begin() < j + 1; --j) {
-          sum.ubig_value.push(*j);
+          digit = *j + carry;
+          carry = 0;
+          if (digit >= 10) {
+               carry = digit - 10;
+               digit %= 10;
+          }
+          sum.ubig_value.push(digit);        
      }
-     if(carry > 0) {
+     if( carry > 0) {
           sum.ubig_value.push(carry);
      }
+     sum.cut_zeroes();
      return sum;
 }
 
@@ -85,8 +83,10 @@ ubigint ubigint::operator+= (const ubigint& that) const {
 
 ubigint ubigint::operator- (const ubigint& that) const {
      if (*this < that) { 
-          // cout << *this << " " << that;
           throw domain_error ("ubigint::operator-(a<b)");
+     }
+     if (*this == that) {
+          return ubigint("");
      }
      int maxLength;
      ubigvalue_t num;
@@ -107,6 +107,7 @@ ubigint ubigint::operator- (const ubigint& that) const {
      for (i = i; this->ubig_value.begin() < i + 1; --i) {
           diff.ubig_value.push(*i - carry);
      }
+     diff.cut_zeroes();
      return diff;
 }
 ubigint ubigint::operator-= (const ubigint& that) const {
@@ -163,39 +164,34 @@ void ubigint::divide_by_2() {
 
 
 struct quo_rem { ubigint quotient; ubigint remainder; };
-quo_rem udivide(const ubigint& dividend, const ubigint& divisor) {
-     // NOTE: udivide is a non-member function.
-     quo_rem calculation;
-     ubigint divisor_ = divisor;
+quo_rem udivide(const ubigint& dividend, const ubigint& divisor_) {
+     ubigint divisor = divisor_;
      ubigint zero ("0");
      if (divisor == zero) throw domain_error ("udivide by zero");
      ubigint power_of_2 ("1");
-     ubigint quotient ("");
+     ubigint quotient ("0");
      ubigint remainder {dividend}; // left operand, dividend
-     while (divisor_ < remainder) {
-          divisor_.multiply_by_2();
+     while (divisor < remainder) {
+          divisor.multiply_by_2();
           power_of_2.multiply_by_2();
      }
-     while (power_of_2 > zero && divisor_ > zero) {
-          if (divisor_ <= remainder) {           
-               remainder -= divisor_;
+     while (power_of_2 > zero) {
+          if (divisor <= remainder) {
+               remainder = remainder - divisor;
                quotient = quotient + power_of_2;
-               // cout << "quotient: " << quotient << '\n';
           }
-          divisor_.divide_by_2();
+          divisor.divide_by_2();
           power_of_2.divide_by_2();
      }
      return {quotient, remainder};
 }
 
 ubigint ubigint::operator/ (const ubigint& that) const {
-     quo_rem calculation = udivide(*this, that);  
-     return calculation.quotient;
+     return udivide(*this, that).quotient;  
 }
 
 ubigint ubigint::operator% (const ubigint& that) const {
-     //return udivide (*this, that).remainder;
-     return ubigint("0");
+     return udivide (*this, that).remainder;
 }
 
 bool ubigint::operator== (const ubigint& that) const {
@@ -234,10 +230,10 @@ bool ubigint::operator< (const ubigint& that) const {
      return false;
 }
 bool ubigint::operator<= (const ubigint& that) const {
-     if(*this > that) {
-          return false;
+     if(*this < that || *this == that) {
+          return true;
      }
-     return true;
+     return false;
 }
 bool ubigint::operator> (const ubigint& that) const {
      if (*this == that || *this < that) {
@@ -263,4 +259,8 @@ void ubigint::cut_zeroes () {
      while(this->ubig_value.top() <= 0) {
           this->ubig_value.pop();
      }
+     // if(this->ubig_value.size() == 0) {
+     //      udigit_t zero = 0;
+     //      this->ubig_value.push(zero);
+     // }
 }
