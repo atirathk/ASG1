@@ -18,7 +18,8 @@
 			"iostream": "cpp",
 			"deque": "cpp",
 			"list": "cpp",
-			"ostream": "cpp"
+			"ostream": "cpp",
+			"cmath": "cpp"
 		}
 	}
 }

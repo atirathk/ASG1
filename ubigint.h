@@ -21,6 +21,7 @@ class ubigint {
    public:
       void multiply_by_2();
       void divide_by_2();
+      void cut_zeroes ();
 
       ubigint() = default; // Need default ctor as well.
       ubigint (ubigvalue_t);
@@ -29,13 +30,17 @@ class ubigint {
       ubigint operator+ (const ubigint& that) const;
       ubigint operator+= (const ubigint& that) const;
       ubigint operator- (const ubigint& that) const;
+      ubigint operator-= (const ubigint& that) const;
       ubigint operator* (const ubigint& that) const;
       ubigint operator/ (const ubigint& that) const;
       ubigint operator% (const ubigint& that) const;
 
       bool operator== (const ubigint& that) const;
+      bool operator!= (const ubigint& that) const;
       bool operator<  (const ubigint& that) const;
+      bool operator<=  (const ubigint& that) const;
       bool operator>  (const ubigint& that) const;
+      bool operator>=  (const ubigint& that) const;
 
 };
 

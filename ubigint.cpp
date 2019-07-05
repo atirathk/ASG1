@@ -59,7 +59,7 @@ ubigint ubigint::operator+ (const ubigint& that) const {
      unsigned char carry = 0;
      for (i = this->ubig_value.end() - 1; this->ubig_value.begin() < i + 1 && that.ubig_value.begin() < j + 1; --i, --j) {
           udigit_t digit = *i + *j + carry;
-          cout << "current digit: " << static_cast<int>(*j) << '\n';
+          // cout << "current digit: " << static_cast<int>(*j) << '\n';
           carry = 0;
           if (digit >= 10) {
                carry = 1;
@@ -85,6 +85,7 @@ ubigint ubigint::operator+= (const ubigint& that) const {
 
 ubigint ubigint::operator- (const ubigint& that) const {
      if (*this < that) { 
+          // cout << *this << " " << that;
           throw domain_error ("ubigint::operator-(a<b)");
      }
      int maxLength;
@@ -108,6 +109,9 @@ ubigint ubigint::operator- (const ubigint& that) const {
      }
      return diff;
 }
+ubigint ubigint::operator-= (const ubigint& that) const {
+     return (*this - that);
+}
 //NEED TO FINISH THE / OPERATOR, THEN THE % OPERATOR
 ubigint ubigint::operator* (const ubigint& that) const {
 	ubigint product("");
@@ -129,62 +133,64 @@ ubigint ubigint::operator* (const ubigint& that) const {
 }
 
 void ubigint::multiply_by_2() {
-     //ubig_value *= 2;
-     cerr << "fix void ubigint::multiply_by_2()!";
+     *this = *this + *this;
 }
 
 void ubigint::divide_by_2() {
-     //ubig_value /= 2;
-     cerr << "fix void ubigint::divide_by_2()!";
+     ubigint one("1");
+     ubigint zero("0");
+     if(*this == one) {
+          *this = zero;
+          return;
+     }
+     ubigint quotient("");
+     udigit_t remainder = 0;
+     for (auto i = this->ubig_value.end() - 1; this->ubig_value.begin() < i + 1; --i) {
+          udigit_t digit = *i;
+          remainder = digit % 2;
+          if(remainder > 0) {
+               udigit_t prev = quotient.ubig_value.top();
+               quotient.ubig_value.pop();
+               prev += 5;
+               quotient.ubig_value.push(prev);
+          }
+          digit = digit/2;
+          quotient.ubig_value.push(digit);
+     }
+     quotient.cut_zeroes();
+     *this = quotient;
 }
 
 
 struct quo_rem { ubigint quotient; ubigint remainder; };
-quo_rem udivide(const ubigint& dividend, const ubigint& divisor_) {
+quo_rem udivide(const ubigint& dividend, const ubigint& divisor) {
      // NOTE: udivide is a non-member function.
-     //ubigint divisor {divisor_};
-     //ubigint zero {0};
-     //if (divisor == zero) throw domain_error ("udivide by zero");
-     //ubigint power_of_2 {1};
-     //ubigint quotient {0};
-     //ubigint remainder {dividend}; // left operand, dividend
-     //while (divisor < remainder) {
-     //   divisor.multiply_by_2();
-     //   power_of_2.multiply_by_2();
-     //}
-     //while (power_of_2 > zero) {
-     //   if (divisor <= remainder) {
-     //      remainder = remainder - divisor;
-     //      quotient = quotient + power_of_2;
-     //   }
-     //   divisor.divide_by_2();
-     //   power_of_2.divide_by_2();
-     //}
-     //return {.quotient = quotient, .remainder = remainder};
-     cerr << "fix void ubigint::quo_rem udivide()!";
-     return {};
+     quo_rem calculation;
+     ubigint divisor_ = divisor;
+     ubigint zero ("0");
+     if (divisor == zero) throw domain_error ("udivide by zero");
+     ubigint power_of_2 ("1");
+     ubigint quotient ("");
+     ubigint remainder {dividend}; // left operand, dividend
+     while (divisor_ < remainder) {
+          divisor_.multiply_by_2();
+          power_of_2.multiply_by_2();
+     }
+     while (power_of_2 > zero && divisor_ > zero) {
+          if (divisor_ <= remainder) {           
+               remainder -= divisor_;
+               quotient = quotient + power_of_2;
+               // cout << "quotient: " << quotient << '\n';
+          }
+          divisor_.divide_by_2();
+          power_of_2.divide_by_2();
+     }
+     return {quotient, remainder};
 }
 
 ubigint ubigint::operator/ (const ubigint& that) const {
-//    if (divisor == 0) throw domain_error ("divide(_,0)");
-//    ulong powerof2 = 1;
-//    ulong divisor_ = divisor;
-//    while (divisor_ < dividend) {
-//       divisor_ *= 2;
-//       powerof2 *= 2;
-//    }
-//    ulong quotient = 0;
-//    ulong remainder = dividend;
-//    while (powerof2 > 0) {
-//       if (divisor_ <= remainder) {
-//          remainder -= divisor_;
-//          quotient += powerof2;
-//       }
-//       divisor_ /= 2;
-//       powerof2 /= 2;
-//    }
-//    return uupair (quotient, remainder);     
-   return ubigint("0");
+     quo_rem calculation = udivide(*this, that);  
+     return calculation.quotient;
 }
 
 ubigint ubigint::operator% (const ubigint& that) const {
@@ -204,7 +210,9 @@ bool ubigint::operator== (const ubigint& that) const {
      }
      return true;
 }
-
+bool ubigint::operator!= (const ubigint& that) const {
+     return !(*this == that);
+}
 bool ubigint::operator< (const ubigint& that) const {
      if(this->ubig_value.size() < that.ubig_value.size()) {
           return true;
@@ -214,28 +222,45 @@ bool ubigint::operator< (const ubigint& that) const {
      }
      auto j = this->ubig_value.begin();
      for (auto i = that.ubig_value.begin(); i < that.ubig_value.end(); ++i, ++j) {
-          if (*i > *j) {
-               return false;
-          }
-          if (*i < *j) {
+          int thatVal = static_cast<int>(*i);
+          int thisVal = static_cast<int>(*j);
+          if (thisVal < thatVal) {
                return true;
+          }
+          if (thisVal > thatVal) {
+               return false;
           }
      }
      return false;
 }
-
+bool ubigint::operator<= (const ubigint& that) const {
+     if(*this > that) {
+          return false;
+     }
+     return true;
+}
 bool ubigint::operator> (const ubigint& that) const {
-     if (*this == that) {
+     if (*this == that || *this < that) {
           return false;
      }
 
-     return (*this < that);
+     return true;
 }
-
+bool ubigint::operator>= (const ubigint& that) const {
+     if(*this < that) {
+          return false;
+     }
+     return true;
+}
 ostream& operator<< (ostream& out, const ubigint& that) {
      out << "ubigint(";
      for (auto i = that.ubig_value.begin(); i < that.ubig_value.end(); ++i) {
           out << static_cast<int>(*i);
      }
      out << ")";
+}
+void ubigint::cut_zeroes () {
+     while(this->ubig_value.top() <= 0) {
+          this->ubig_value.pop();
+     }
 }
