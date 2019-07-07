@@ -127,12 +127,13 @@ int main() {
 	cout << u3 << " - " << u1 << " = " << (u3 - u1) << "\n";
 
 	ubigint u4("126");
-	ubigint u5("10");
+	ubigint u5("1122");
 	// ubigint u6("23");
 	// u6.divide_by_2();
 	// cout << u6 << '\n';
 	cout << u4 << " / " << u5 << " = " << (u4 / u5) << "\n";
 	cout << u4 << " % " << u5 << " = " << (u4 % u5) << "\n";
+	cout << u4 << " * " << u5 << " = " << (u4 * u5) << "\n";
 	return 0;
 }
 

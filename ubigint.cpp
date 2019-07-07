@@ -116,20 +116,23 @@ ubigint ubigint::operator-= (const ubigint& that) const {
 //NEED TO FINISH THE / OPERATOR, THEN THE % OPERATOR
 ubigint ubigint::operator* (const ubigint& that) const {
 	ubigint product("");
-	ubigint intermed("");
-	udigit_t carry = 0;
-	for (auto i = this->ubig_value.end() - 1; this->ubig_value.begin() < i + 1; --i) {
-		carry = 0;
-		for (auto j = that.ubig_value.end() - 1; that.ubig_value.begin() < j + 1; --j) {
-			intermed.ubig_value.push(*i * *j + carry);
-			if (intermed.ubig_value.top() >= 10) {
-				carry = intermed.ubig_value.top() / 10;
-				// intermed.ubig_value.push(intermed.ubig_value % 10);
+     ubigvalue_t zeroes;
+	for (auto i = that.ubig_value.end() - 1; that.ubig_value.begin() < i + 1; --i) {
+          udigit_t carry = 0;
+	     ubigint intermed(zeroes);
+          zeroes.push(0);
+		for (auto j = this->ubig_value.end() - 1; this->ubig_value.begin() < j + 1; --j) {
+               udigit_t digit = *i * *j + carry;
+               carry = 0;
+               if (digit >= 10) {
+				carry = digit / 10;
+                    digit %= 10;
 			}
+               intermed.ubig_value.push(digit);
 		}
-		product += intermed;
+		product = product + intermed;
 	}
-	// product = cut_zeroes(product);
+	product.cut_zeroes();
 	return product;
 }
 
@@ -259,8 +262,4 @@ void ubigint::cut_zeroes () {
      while(this->ubig_value.top() <= 0) {
           this->ubig_value.pop();
      }
-     // if(this->ubig_value.size() == 0) {
-     //      udigit_t zero = 0;
-     //      this->ubig_value.push(zero);
-     // }
 }
