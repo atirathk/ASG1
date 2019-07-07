@@ -114,26 +114,34 @@ void do_dup(bigint_stack& stack, const char) {
 int main() {
 	iterstack <unsigned char> st;
 	// st.push(4), st.push(5), st.push(0);
-	ubigint u1("432");
-	cout << u1 << "\n";
-	ubigint u2("432");
-	cout << u1 << " == " << u2 << ":	" << (u1 == u2) << "\n";
-	ubigint u3("2342");
-	cout << u1 << " == " << u3 << ":	" << (u1 == u3) << "\n";
-	cout << u1 << " < " << u2 << ":	" << (u1 < u2) << "\n";
-	cout << u1 << " < " << u3 << ":	" << (u1 < u3) << "\n";
-	cout << u1 << " > " << u3 << ":	" << (u1 > u3) << "\n";
-	cout << u1 << " + " << u3 << " = " << (u3 + u1) << "\n";
-	cout << u3 << " - " << u1 << " = " << (u3 - u1) << "\n";
+	// ubigint u1("432");
+	// cout << u1 << "\n";
+	// ubigint u2("432");
+	// cout << u1 << " == " << u2 << ":	" << (u1 == u2) << "\n";
+	// ubigint u3("2342");
+	// cout << u1 << " == " << u3 << ":	" << (u1 == u3) << "\n";
+	// cout << u1 << " < " << u2 << ":	" << (u1 < u2) << "\n";
+	// cout << u1 << " < " << u3 << ":	" << (u1 < u3) << "\n";
+	// cout << u1 << " > " << u3 << ":	" << (u1 > u3) << "\n";
+	// cout << u1 << " + " << u3 << " = " << (u3 + u1) << "\n";
+	// cout << u3 << " - " << u1 << " = " << (u3 - u1) << "\n";
 
-	ubigint u4("126");
-	ubigint u5("1122");
-	// ubigint u6("23");
-	// u6.divide_by_2();
-	// cout << u6 << '\n';
-	cout << u4 << " / " << u5 << " = " << (u4 / u5) << "\n";
-	cout << u4 << " % " << u5 << " = " << (u4 % u5) << "\n";
-	cout << u4 << " * " << u5 << " = " << (u4 * u5) << "\n";
+	// ubigint u4("126");
+	// ubigint u5("1122");
+	// // ubigint u6("23");
+	// // u6.divide_by_2();
+	// // cout << u6 << '\n';
+	// cout << u4 << " / " << u5 << " = " << (u4 / u5) << "\n";
+	// cout << u4 << " % " << u5 << " = " << (u4 % u5) << "\n";
+	// cout << u4 << " * " << u5 << " = " << (u4 * u5) << "\n";
+	bigint b1 (-4352);
+	bigint b2 ("54354");
+	cout << b1 << " + " << b2 << " = " << (b1 + b2) << '\n';
+
+	bigint b3(-1345);
+	bigint b4(-235567);
+	cout << b3 << " - " << b4 << " = " << (b3 - b4) << '\n';
+	
 	return 0;
 }
 

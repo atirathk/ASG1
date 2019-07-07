@@ -16,14 +16,12 @@ using namespace std;
 class bigint {
    friend ostream& operator<< (ostream&, const bigint&);
    private:
-	   using digit_t = unsigned char;
-	   using bigvalue_t = iterstack<digit_t>;
-	   bigvalue_t big_value;
-      bool is_negative;
+      ubigint uvalue;
+      bool is_negative {false};
    public:
 
       bigint() = default; // Needed or will be suppressed.
-      bigint (bigvalue_t);
+      bigint (long);
       bigint (const ubigint&, bool is_negative = false);
       explicit bigint (const string&);
 
@@ -38,7 +36,11 @@ class bigint {
 
       bool operator== (const bigint&) const;
       bool operator<  (const bigint&) const;
+      bool operator>  (const bigint&) const;
+      
+      bool operator<=  (const bigint&) const;
+      bool operator>=  (const bigint&) const;
+
 };
 
 #endif
-
