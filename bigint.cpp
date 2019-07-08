@@ -18,8 +18,10 @@ bigint::bigint (long that): is_negative (that < 0) {
         that *= -1;
     }
     iterstack<unsigned char> val;
-    //Got this loop from stack overflow at : https://stackoverflow.com/questions/3118490/getting-each-individual-digit-from-a-whole-integer
-    //from Martin B
+    /*Got this loop from stack overflow at : 
+    https://stackoverflow.com/questions/3118490
+    /getting-each-individual-digit-from-a-whole-integer
+    from Martin B */
     while(that)
     {
         val.push(that % 10);
@@ -59,11 +61,11 @@ bigint bigint::operator+ (const bigint& that) const {
             result = that.uvalue - uvalue;
             negative = that.is_negative;
         }
-        else if(*this < that && this->uvalue > that.uvalue) {
+        else if(*this < that && uvalue > that.uvalue) {
             result = uvalue - that.uvalue;
             negative = is_negative;
         }
-        else if(*this > that && this->uvalue < that.uvalue) {
+        else if(*this > that && uvalue < that.uvalue) {
             result = that.uvalue - uvalue;
             negative = that.is_negative;
         }
@@ -109,11 +111,13 @@ bigint bigint::operator* (const bigint& that) const {
 }
 
 bigint bigint::operator/ (const bigint& that) const {
-    return bigint((uvalue / that.uvalue), (is_negative != that.is_negative));
+    return bigint((uvalue / that.uvalue), 
+    (is_negative != that.is_negative));
 }
 
 bigint bigint::operator% (const bigint& that) const {
-    return bigint((uvalue % that.uvalue), (is_negative != that.is_negative));
+    return bigint((uvalue % that.uvalue), 
+    (is_negative != that.is_negative));
 }
 
 bool bigint::operator== (const bigint& that) const {
@@ -144,7 +148,7 @@ bool bigint::operator>= (const bigint& that) const {
         return false;
 }
 ostream& operator<< (ostream& out, const bigint& that) {
-   return out << "bigint(" << (that.is_negative ? "-" : "+")
-              << "," << that.uvalue << ")";
+    return out << (that.is_negative ? "-" : "")
+                << that.uvalue;
 }
 

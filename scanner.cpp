@@ -9,9 +9,11 @@ using namespace std;
 
 #include "scanner.h"
 #include "debug.h"
+#ifdef _WIN32
 #define not !
 #define and &&
 #define or ||
+#endif
 char scanner::get() {
    if (not good()) throw runtime_error ("scanner::get() past EOF"); 
    char currchar = nextchar;
