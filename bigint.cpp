@@ -31,6 +31,7 @@ bigint::bigint (long that): is_negative (that < 0) {
 
 bigint::bigint (const ubigint& uvalue_, bool is_negative_):
                 uvalue(uvalue_), is_negative(is_negative_) {
+                    if(uvalue == ubigint("")) {is_negative = false;}
 }
 
 bigint::bigint (const string& that) {
@@ -102,18 +103,17 @@ bigint bigint::operator- (const bigint& that) const {
 
 
 bigint bigint::operator* (const bigint& that) const {
-   bigint result = uvalue * that.uvalue;
-   return result;
+    bigint result = uvalue * that.uvalue;
+    result.is_negative = (is_negative != that.is_negative);
+    return result;
 }
 
 bigint bigint::operator/ (const bigint& that) const {
-   bigint result = uvalue / that.uvalue;
-   return result;
+    return bigint((uvalue / that.uvalue), (is_negative != that.is_negative));
 }
 
 bigint bigint::operator% (const bigint& that) const {
-   bigint result = uvalue % that.uvalue;
-   return result;
+    return bigint((uvalue % that.uvalue), (is_negative != that.is_negative));
 }
 
 bool bigint::operator== (const bigint& that) const {

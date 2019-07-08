@@ -14,7 +14,6 @@ string exec::execname_; // Must be initialized from main().
 int exec::status_ = EXIT_SUCCESS;
 
 void exec::execname (const string& argv0) {
-   // char* argv0Dup = strdup(argv0.c_str());
    execname_ = basename (strdup(argv0.c_str()));
    cout << boolalpha;
    cerr << boolalpha;
